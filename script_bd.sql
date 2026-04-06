@@ -120,7 +120,7 @@ CREATE TABLE Postulacion(
 ) ENGINE=InnoDB;
 
 CREATE TABLE Iniciativa(
-    ID_Iniciativa INT PRIMARY KEY,
+    ID_Iniciativa INT PRIMARY KEY AUTO_INCREMENT,
     Documentos VARCHAR(100), -- np hay q ponerle el not null porque es opcional!!
     Nombre_Iniciativa VARCHAR(100) NOT NULL,
     Objetivo_Iniciativa VARCHAR(255) NOT NULL,
@@ -163,3 +163,46 @@ CREATE TABLE Etapa_Cronograma(
     PRIMARY KEY (ID_Postulacion, Etapa),
     FOREIGN KEY (ID_Postulacion) REFERENCES Postulacion(Numero_Postulacion)
 ) ENGINE=InnoDB;
+
+INSERT INTO Integrante_Equipo (ID_integrante,Nombre_Integrante, RUT_Integrante,Departamento_Integrante,Mail_Integrante,Telefono_Integrante,Rol_Cumple_Integrante, ID_Tipo_Persona, ID_Sede)
+VALUES
+    ('1','Felipe','20123456-7','obras civiles','fel.s@gmail.cl','911223344', 'dibujante','2','1'),
+    ('2','francisco','21000001-k','obras civiles','fra.l@gmail.cl','955667788','calculista', '2','1'),
+    ('3','nicolas','20111222-1', 'obras civiles', 'nic.u@gmail.cl', '999110101', 'presupuestos','2','1'),
+    ('4','diego','20800900-9','obras civiles', 'die.d@gmail.cl', '922023303', 'supervisor', '2', '1'),
+    ('5','daniel','21001002-k','obras civiles', 'dan.z@gmail.cl', '912341234', 'disenador', '2', '1'),
+    ('6','sergio','12000000-9','obras civiles', 'sergio.d@gmail.cl', '999999999', 'responsable1', '1', '1'),
+    ('7','francisco','12000111-1','obras civiles', 'fran.d@gmail.cl', '911111111', 'responsable2', '1', '1'),
+    ('8','catalina','12000222-2','obras civiles', 'catalina.d@gmail.cl', '922222222', 'supervisora', '1', '1');
+
+INSERT INTO Entidad_Empresa(Rut_Empresa, Nombre_Empresa, Representante_Empresa, Mail_Representante, Convenio_USM, Telefono_Representante, ID_Tamanio)
+VALUES
+    ('71202909-9', 'FYF inmobiliaria', 'Felipe Salazar', 'felipe.sal@fyf.cl','1', '993769090','1');
+
+INSERT INTO Postulacion(Numero_Postulacion, Fecha_Postulacion, Codigo_Postulacion, Presupuesto_Total, Nombre_Responsable_1, Nombre_Responsable_2, Rut_Empresa, ID_Sede, ID_Region_Ejecucion, ID_Region_Impacto, ID_Tipo_Iniciativa, ID_Estado)
+VALUES
+    ('1', '2026-04-18', 'A12','100000000','sergio','francisco','71202909-9','1','1','2','1','1');
+
+INSERT INTO Iniciativa(Documentos, Nombre_Iniciativa, Objetivo_Iniciativa, Descripcion_Soluciones, Resultados_Esperados,ID_Postulacion)
+VALUES
+    ('planos detalle de refuerzo en aislacion', 'modernizacion de aislacion', 'viviendas sociales antiguas no cumplen con los estandares de aislacionmodernos', 'cambiar aislacion danada y reforzar con soluciones actuales','mejorar la aislacion termica de viviendas sociales','1');
+
+INSERT INTO Etapa_Cronograma (ID_Postulacion, Etapa, Entregable, Plazos)
+VALUES
+    ('1', '1','lista de duenos y direcciones', '2'),
+    ('1', '2','lista de danos de cada vivienda', '1'),
+    ('1', '3','especificaciones tecnicas de solucion', '1'),
+    ('1', '4','cada casa con la aislacion modernizada', '1'),
+    ('1', '5','planos y memoria de calculo del resultado', '1');
+
+INSERT INTO Equipo_de_Trabajo(Numero_Postulacion, ID_integrante)
+VALUES
+    ('1', '1'),
+    ('1', '2'),
+    ('1', '3'),
+    ('1', '4'),
+    ('1', '5'),
+    ('1', '6'),
+    ('1', '7'),
+    ('1', '8');
+
