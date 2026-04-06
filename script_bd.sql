@@ -131,7 +131,7 @@ CREATE TABLE Iniciativa(
 ) ENGINE=InnoDB;
 
 CREATE TABLE Integrante_Equipo(
-    ID_integrante INT PRIMARY KEY,
+    ID_integrante INT PRIMARY KEY AUTO_INCREMENT,
     Nombre_Integrante VARCHAR(100) NOT NULL,
     RUT_Integrante VARCHAR(10) NOT NULL UNIQUE,
     Departamento_Integrante VARCHAR(100) NOT NULL,
@@ -164,16 +164,16 @@ CREATE TABLE Etapa_Cronograma(
     FOREIGN KEY (ID_Postulacion) REFERENCES Postulacion(Numero_Postulacion)
 ) ENGINE=InnoDB;
 
-INSERT INTO Integrante_Equipo (ID_integrante,Nombre_Integrante, RUT_Integrante,Departamento_Integrante,Mail_Integrante,Telefono_Integrante,Rol_Cumple_Integrante, ID_Tipo_Persona, ID_Sede)
+INSERT INTO Integrante_Equipo (Nombre_Integrante, RUT_Integrante,Departamento_Integrante,Mail_Integrante,Telefono_Integrante,Rol_Cumple_Integrante, ID_Tipo_Persona, ID_Sede)
 VALUES
-    ('1','Felipe','20123456-7','obras civiles','fel.s@gmail.cl','911223344', 'dibujante','2','1'),
-    ('2','francisco','21000001-k','obras civiles','fra.l@gmail.cl','955667788','calculista', '2','1'),
-    ('3','nicolas','20111222-1', 'obras civiles', 'nic.u@gmail.cl', '999110101', 'presupuestos','2','1'),
-    ('4','diego','20800900-9','obras civiles', 'die.d@gmail.cl', '922023303', 'supervisor', '2', '1'),
-    ('5','daniel','21001002-k','obras civiles', 'dan.z@gmail.cl', '912341234', 'disenador', '2', '1'),
-    ('6','sergio','12000000-9','obras civiles', 'sergio.d@gmail.cl', '999999999', 'responsable1', '1', '1'),
-    ('7','francisco','12000111-1','obras civiles', 'fran.d@gmail.cl', '911111111', 'responsable2', '1', '1'),
-    ('8','catalina','12000222-2','obras civiles', 'catalina.d@gmail.cl', '922222222', 'supervisora', '1', '1');
+    ('Felipe','20123456-7','obras civiles','fel.s@gmail.cl','911223344', 'dibujante','2','1'),
+    ('francisco','21000001-k','obras civiles','fra.l@gmail.cl','955667788','calculista', '2','1'),
+    ('nicolas','20111222-1', 'obras civiles', 'nic.u@gmail.cl', '999110101', 'presupuestos','2','1'),
+    ('diego','20800900-9','obras civiles', 'die.d@gmail.cl', '922023303', 'supervisor', '2', '1'),
+    ('daniel','21001002-k','obras civiles', 'dan.z@gmail.cl', '912341234', 'disenador', '2', '1'),
+    ('sergio','12000000-9','obras civiles', 'sergio.d@gmail.cl', '999999999', 'responsable1', '1', '1'),
+    ('francisco','12000111-1','obras civiles', 'fran.d@gmail.cl', '911111111', 'responsable2', '1', '1'),
+    ('catalina','12000222-2','obras civiles', 'catalina.d@gmail.cl', '922222222', 'supervisora', '1', '1');
 
 INSERT INTO Entidad_Empresa(Rut_Empresa, Nombre_Empresa, Representante_Empresa, Mail_Representante, Convenio_USM, Telefono_Representante, ID_Tamanio)
 VALUES
