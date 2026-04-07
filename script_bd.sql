@@ -417,11 +417,38 @@ JOIN Tipo_Iniciativa ti
 JOIN Estado_Postulacion ep 
     ON p.ID_Estado = ep.ID_Estado
 
-JOIN Equipo_de_Trabajo et 
-    ON p.Numero_Postulacion = et.Numero_Postulacion
+WHERE p.Numero_Postulacion= 1;
 
-JOIN Integrante_Equipo ie
-    ON et.ID_Integrante = ie.ID_Integrante
+SELECT 
+    et.Numero_Postulacion, tp.Nombre_Tipo_Persona,
+    COUNT(ie.ID_integrante) AS Total_Integrantes
+FROM Equipo_de_Trabajo et 
+JOIN Integrante_Equipo ie 
+    ON et.ID_integrante = ie.ID_integrante
+JOIN Tipo_Persona tp 
+    ON ie.ID_Tipo_Persona = tp.ID_Tipo_Persona
+GROUP BY et.Numero_Postulacion, tp.Nombre_Tipo_Persona;
 
-WHERE et.Numero_Postulacion= 1;
 
+-- 1. Listado General de Postulaciones
+SELECT
+    p.Numero_Postulacion AS 'Postulación N°',
+    p.Fecha_Postulacion AS 'Fecha',
+    ti.Nombre_Tipo_Iniciativa AS 'Tipo de Iniciativa',
+    s.Nombre_Sede AS 'Sede',
+    r1.Nombre_Region AS 'Región de ejecución',
+    r2.Nombre_Region AS 'Región de Impacto',
+    e.Nombre_Empresa AS 'Empresa', 
+    p.Presupuesto_Total AS 'Presupuesto total'
+
+FROM Postulacion p
+JOIN Tipo_Iniciativa ti 
+    ON p.ID_Tipo_Iniciativa = ti.ID_tipo_iniciativa
+JOIN Sede s 
+    ON p.ID_Sede = s.ID_Sede
+JOIN Region r1 
+    ON p.ID_Region_Ejecucion = r1.ID_Region
+JOIN Region r2 
+    ON p.ID_Region_Impacto = r2.ID_Region
+JOIN Entidad_Empresa e 
+    ON p.Rut_Empresa = e.Rut_Empresa;
