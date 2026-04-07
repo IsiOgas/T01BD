@@ -96,7 +96,7 @@ CREATE TABLE Postulacion(
     Numero_Postulacion INT PRIMARY KEY,
     Fecha_Postulacion DATE NOT NULL, -- para guardar fechas es el date tipo aaaa-mm-dd
     Codigo_Postulacion VARCHAR(100) NOT NULL UNIQUE,
-    Presupuesto_Total DECIMAL(11,5) NOT NULL,
+    Presupuesto_Total DECIMAL(14,2) NOT NULL,
     Nombre_Responsable_1 VARCHAR(100) NOT NULL,
     Nombre_Responsable_2 VARCHAR(100) NOT NULL,
 
@@ -155,12 +155,13 @@ CREATE TABLE Equipo_de_Trabajo(
 ) ENGINE=InnoDB;
 
 CREATE TABLE Etapa_Cronograma(
+    ID_Etapa INT NOT NULL AUTO_INCREMENT,
     ID_Postulacion INT NOT NULL,
-    Etapa INT NOT NULL,
+    Etapa VARCHAR(100) NOT NULL,
     Entregable VARCHAR(100) NOT NULL,
     Plazos INT NOT NULL,
 
-    PRIMARY KEY (ID_Postulacion, Etapa),
+    PRIMARY KEY (ID_Etapa),
     FOREIGN KEY (ID_Postulacion) REFERENCES Postulacion(Numero_Postulacion)
 ) ENGINE=InnoDB;
 
@@ -173,27 +174,123 @@ VALUES
     ('daniel','21001002-k','obras civiles', 'dan.z@gmail.cl', '912341234', 'disenador', '2', '1'),
     ('sergio','12000000-9','obras civiles', 'sergio.d@gmail.cl', '999999999', 'responsable1', '1', '1'),
     ('francisco','12000111-1','obras civiles', 'fran.d@gmail.cl', '911111111', 'responsable2', '1', '1'),
-    ('catalina','12000222-2','obras civiles', 'catalina.d@gmail.cl', '922222222', 'supervisora', '1', '1');
+    ('catalina','12000222-2','obras civiles', 'catalina.d@gmail.cl', '922222222', 'supervisora', '1', '1'),
+    ('juan', '19367788-1', 'mecanica','juan.peralta@gmail.com', '96713225', 'supervisor', '1', '2'),
+    ('jorge', '19000000-1', 'mecanica','jorge.alta@gmail.com', '900800700', 'supervisor', '1', '2'),
+    ('cristobal', '18492109-9', 'mecanica','cristo.a@gmail.com', '93516733 ', 'disenador', '1', '2'),
+    ('carla', '21999888-2', 'mecanica', 'carli@gmail.com', '990909009', 'disenadora', '2', '2'),
+    ('carlota', '21999777-2', 'mecanica', 'car.lota@gmail.com', '980808080', 'planificadora', '2', '2'),
+    ('carlos', '21999666-2', 'mecanica', 'car@gmail.com', '950505050', 'ensamblaje', '2', '2'),
+    ('monica', '20999888-1', 'mecanica', 'moni@gmail.com', '940404040', 'ensamblaje', '2', '2'),
+    ('renato', '20888999-1', 'mecanica', 'rena@gmail.com', '920202020', 'ensamblaje', '2', '2'),
+    ('Juan Pérez','12345678-9','Electrónica','jperez@usm.cl','910203040','Líder técnico', '1', '4'),
+    ('María González','23456789-0','Informática','mgonzalez@usm.cl','910203050','Coordinadora IA', '1', '4'),
+    ('Rodrigo Silva','34567890-1','Agronomía','rsilva@usm.cl','910202040','Especialista agrícola', '1', '4'),
+    ('Ana Torres','45678901-2','Informática','ana.torres@usm.cl','910103040','Backend', '2', '4'),
+    ('Diego Rojas','56789012-3','Electrónica','diego.rojas@usm.cl','910203060','Hardware','2', '4'),
+    ('Camila Soto','67890123-4','Informática','camila.soto@usm.cl','910203070','Frontend', '2', '4'),
+    ('Felipe Muñoz','78901234-5','Industrial','felipe.munoz@usm.cl','910203080','Gestión', '2', '1'),
+    ('Valentina Díaz','89012345-6','Informática','valentina.diaz@usm.cl','910203090','Data Analyst', '2', '1'),
+    ('Luis Herrera','90123456-7','Informática','luis.herrera@usm.cl','911111111','Líder técnico','2','1'),
+    ('Carolina Vega','91234567-8','Industrial','carolina.vega@usm.cl','922222222','Gestión','2','1'),
+    ('Pedro Castillo','92345678-9','Electrónica','pedro.castillo@usm.cl','933333333','Hardware','2','1'),
+    ('Sofía Ramírez','93456789-0','Informática','sofia.ramirez@usm.cl','944444444','Frontend','1','1'),
+    ('Tomás López','94567890-1','Informática','tomas.lopez@usm.cl','955555555','Backend','1','1'),
+    ('Javiera Paredes','95678901-2','Industrial','javiera.paredes@usm.cl','966666666','Apoyo gestión','1','1'),
+    ('Matías Fuentes','96789012-3','Electrónica','matias.fuentes@usm.cl','977777777','Sensores','1','1'),
+    ('Fernanda Ríos','97890123-4','Informática','fernanda.rios@usm.cl','988888888','QA','1','1'),
+    ('Ricardo Núñez','98901234-5','Electrónica','ricardo.nunez@usm.cl','911223300','Líder técnico','2','3'),
+    ('Paula Torres','99012345-6','Informática','paula.torres@usm.cl','922334400','IA','2','3'),
+    ('Andrés Morales','90111222-3','Industrial','andres.morales@usm.cl','933445500','Gestión','2','3'),
+    ('Daniela Cruz','90222333-4','Informática','daniela.cruz@usm.cl','944556600','Frontend','1','3'),
+    ('Sebastián Ortiz','90333444-5','Informática','sebastian.ortiz@usm.cl','955667700','Backend','1','3'),
+    ('Valeria Campos','90444555-6','Industrial','valeria.campos@usm.cl','966778800','Apoyo','1','3'),
+    ('Ignacio Reyes','90555666-7','Electrónica','ignacio.reyes@usm.cl','977889900','Hardware','1','3'),
+    ('Constanza Silva','90666777-8','Informática','constanza.silva@usm.cl','988990000','QA','1','3'),
+    ('Héctor Salinas','90777888-9','Industrial','hector.salinas@usm.cl','911000111','Gestión','2','4'),
+    ('Claudia Pinto','90888999-0','Informática','claudia.pinto@usm.cl','922000222','Líder técnico','2','4'),
+    ('Jorge Araya','90999000-1','Electrónica','jorge.araya@usm.cl','933000333','Hardware','2','4'),
+    ('Natalia León','91000111-2','Informática','natalia.leon@usm.cl','944000444','Frontend','1','4'),
+    ('Cristóbal Vargas','91111222-3','Informática','cristobal.vargas@usm.cl','955000555','Backend','1','4'),
+    ('Antonia Figueroa','91222333-4','Industrial','antonia.figueroa@usm.cl','966000666','Apoyo','1','4'),
+    ('Benjamín Soto','91333444-5','Electrónica','benjamin.soto@usm.cl','977000777','Sensores','1','4'),
+    ('Isidora Castro','91444555-6','Informática','isidora.castro@usm.cl','988000888','QA','1','4'),
+    ('Diego Fernández','91555666-1','Informática','diego.fernandez@usm.cl','911111222','Backend','1','2'),
+    ('Camila Bravo','92666777-2','Industrial','camila.bravo@usm.cl','922222333','Gestión','1','3'),
+    ('Tomás Gutiérrez','93777888-3','Electrónica','tomas.gutierrez@usm.cl','933333444','Hardware','1','4'),
+    ('Valentina Navarro','94888999-4','Informática','valentina.navarro@usm.cl','944444555','Frontend','1','5'),
+    ('Sebastián Carrasco','95999000-5','Industrial','sebastian.carrasco@usm.cl','955555666','Apoyo','1','1'),
+    ('Florencia Morales','96000111-6','Informática','florencia.morales@usm.cl','966666777','QA','1','2');
 
 INSERT INTO Entidad_Empresa(Rut_Empresa, Nombre_Empresa, Representante_Empresa, Mail_Representante, Convenio_USM, Telefono_Representante, ID_Tamanio)
 VALUES
-    ('71202909-9', 'FYF inmobiliaria', 'Felipe Salazar', 'felipe.sal@fyf.cl','1', '993769090','1');
+    ('71202909-9', 'FYF inmobiliaria', 'Felipe Salazar', 'felipe.sal@fyf.cl','1', '993769090','1'),
+    ('79605789-4', 'Maquinarias Agrícolas ABC', 'Mario Ordenes', 'mario.ordenes72@abc.cl', '1', '9674563279', '2'),
+    ('76123456-7','AgroTech SpA','Carlos Muñoz','carlos.munoz@agrotech.cl','1','912345678','3'),
+    ('76234567-8','SmartCity Ltda.','Andrea Soto','andrea.soto@smartcity.cl','0','923456789','3'),
+    ('76345678-9','EduTech Chile','Marcelo Díaz','marcelo.diaz@edutech.cl','1','934567890','2'),
+    ('76456789-0','EcoEnergy SpA','Patricia Rojas','patricia.rojas@ecoenergy.cl','0','945678901','1');
 
 INSERT INTO Postulacion(Numero_Postulacion, Fecha_Postulacion, Codigo_Postulacion, Presupuesto_Total, Nombre_Responsable_1, Nombre_Responsable_2, Rut_Empresa, ID_Sede, ID_Region_Ejecucion, ID_Region_Impacto, ID_Tipo_Iniciativa, ID_Estado)
 VALUES
-    ('1', '2026-04-18', 'A12','100000000','sergio','francisco','71202909-9','1','1','2','1','1');
+    ('1', '2026-04-18', 'A12','100000000','sergio','francisco','71202909-9','1','1','2','1','1'),
+    ('2', '2026-04-19', 'B12', '10000000', 'juan', 'jorge', '79605789-4', ' 2','7','8','1', '1'),
+    ('3','2026-03-15','CT','18500000','Jose','María','76123456-7','2','13','6','2','3'),
+    ('4','2026-04-01','A04','22000000','Luis Herrera','Carolina Vega','76234567-8','1','5','13','1','1'),
+    ('5','2026-04-05','B05','15000000','Ricardo Núñez','Paula Torres','76345678-9','3','8','9','2','1'),
+    ('6','2026-04-10','C06','19500000','Claudia Pinto','Héctor Salinas','76456789-0','4','2','3','1','1'),
+    ('7','2026-04-15','D07','17500000','Luis Herrera','Carolina Vega','76234567-8','1','13','5','1','1'),
+    ('8','2026-04-18','E08','21000000','Ricardo Núñez','Paula Torres','76345678-9','3','9','8','2','1'),
+    ('9','2026-04-20','F09','16000000','Claudia Pinto','Héctor Salinas','76456789-0','4','2','13','1','1'),
+    ('10','2026-04-25','G10','25000000','Juan Pérez','María González','76123456-7','2','13','6','2','1');
 
 INSERT INTO Iniciativa(Documentos, Nombre_Iniciativa, Objetivo_Iniciativa, Descripcion_Soluciones, Resultados_Esperados,ID_Postulacion)
 VALUES
-    ('planos detalle de refuerzo en aislacion', 'modernizacion de aislacion', 'viviendas sociales antiguas no cumplen con los estandares de aislacionmodernos', 'cambiar aislacion danada y reforzar con soluciones actuales','mejorar la aislacion termica de viviendas sociales','1');
+    ('planos detalle de refuerzo en aislacion', 'modernizacion de aislacion', 'viviendas sociales antiguas no cumplen con los estandares de aislacionmodernos', 'cambiar aislacion danada y reforzar con soluciones actuales','mejorar la aislacion termica de viviendas sociales','1'),
+    ('planos maquinas', 'maquina cosechadora sustentable', 'contaminacion por maquinas cosechadoras','disenar maquina cosechadora solar', 'disminuir la contaminacion en la region', '2'),
+    ('doc_proyecto_agrotech.pdf','Sistema Inteligente de Monitoreo Agrícola','Desarrollar un sistema IoT para monitorear variables agrícolas en tiempo real y optimizar el uso de recursos hídricos.','Implementación de sensores conectados a una plataforma web que permite visualizar datos y generar alertas para la toma de decisiones.','Reducción del consumo de agua en un 25% y mejora en la productividad agrícola mediante decisiones basadas en datos.','3'),
+    ('doc_smartcity.pdf','Plataforma de Gestión Urbana Inteligente','Desarrollar una plataforma para monitorear servicios urbanos en tiempo real.','Uso de sensores y dashboards para gestionar tránsito, basura y seguridad.','Mejorar eficiencia urbana y reducir tiempos de respuesta.','4'),
+    ('doc_edutech.pdf','Sistema de Aprendizaje Adaptativo','Crear una plataforma educativa basada en IA que adapte contenidos al estudiante.','Uso de algoritmos de recomendación y análisis de desempeño.','Mejorar resultados académicos y personalización del aprendizaje.','5'),
+    ('doc_ecoenergy.pdf','Sistema de Optimización Energética','Desarrollar un sistema para optimizar el consumo energético en industrias.','Monitoreo en tiempo real y recomendaciones automáticas.','Reducción del consumo energético y costos operacionales.','6'),
+    ('doc_iot2.pdf','Optimización de Riego Inteligente','Mejorar el sistema de riego automatizado mediante sensores.','Integración de sensores y análisis de datos en tiempo real.','Reducción de consumo hídrico y mayor eficiencia agrícola.','7'),
+    ('doc_edu2.pdf','Plataforma Educativa Colaborativa','Desarrollar una plataforma de colaboración estudiantil.','Sistema web con herramientas de comunicación y gestión.','Mejor interacción y aprendizaje entre estudiantes.','8'),
+    ('doc_energy2.pdf','Monitoreo Energético Industrial','Sistema para medir consumo energético en tiempo real.','Uso de dashboards y alertas inteligentes.','Disminución de costos energéticos.','9'),
+    ('doc_agro2.pdf','Análisis Predictivo Agrícola','Aplicar IA para predecir rendimiento de cultivos.','Modelos predictivos basados en datos históricos.','Optimización de producción agrícola.','10');
 
 INSERT INTO Etapa_Cronograma (ID_Postulacion, Etapa, Entregable, Plazos)
 VALUES
-    ('1', '1','lista de duenos y direcciones', '2'),
-    ('1', '2','lista de danos de cada vivienda', '1'),
-    ('1', '3','especificaciones tecnicas de solucion', '1'),
-    ('1', '4','cada casa con la aislacion modernizada', '1'),
-    ('1', '5','planos y memoria de calculo del resultado', '1');
+    ('1', 'catastro de casas a intervenir','lista de duenos y direcciones', '2'),
+    ('1', 'analisis aislacion dañada','lista de danos de cada vivienda', '1'),
+    ('1', 'diseño soluciones especificas','especificaciones tecnicas de solucion', '1'),
+    ('1', 'instalacion en terreno','cada casa con la aislacion modernizada', '1'),
+    ('1', 'dibujo de planos','planos y memoria de calculo del resultado', '1'),
+    ('2', 'planificacion', 'plan de accion', '2'),
+    ('2', 'diseño', 'dibujos', '1'),
+    ('2', 'ejecucion', 'maquina', '7'),
+    ('3','Levantamiento de requerimientos','Documento de requerimientos y análisis del sistema','8'),
+    ('3','Desarrollo e implementación','Sistema IoT funcional con plataforma web integrada','16'),
+    ('3','Pruebas y validación','Informe de pruebas y validación en terreno','10'),
+    ('4','Análisis','Informe de requerimientos','10'),
+    ('4','Desarrollo','Plataforma funcional','18'),
+    ('4','Implementación','Sistema desplegado y operativo','12'),  -- TOTAL: 40 ❌
+    ('5','Diseño','Arquitectura del sistema','8'),
+    ('5','Desarrollo','Plataforma IA implementada','14'),
+    ('5','Evaluación','Informe de resultados educativos','12'),    -- TOTAL: 34 ✅
+    ('6','Diagnóstico','Informe energético inicial','12'),
+    ('6','Desarrollo','Sistema implementado','16'),
+    ('6','Validación','Resultados medidos en terreno','10'),   -- TOTAL: 38 ❌
+    ('7','Planificación','Documento de planificación','8'),
+    ('7','Desarrollo','Sistema implementado','14'),
+    ('7','Pruebas','Informe de pruebas','10'),
+    ('8','Análisis','Requerimientos definidos','10'),
+    ('8','Desarrollo','Plataforma funcional','16'),
+    ('8','Evaluación','Resultados medidos','12'), -- 38 ❌
+    ('9','Diagnóstico','Informe inicial','6'),
+    ('9','Desarrollo','Sistema desarrollado','12'),
+    ('9','Validación','Resultados validados','10'), -- 28 ✅
+    ('10','Investigación','Estudio preliminar','12'),
+    ('10','Desarrollo','Modelo IA implementado','18'),
+    ('10','Pruebas','Informe final','10'); -- 40 ❌
 
 INSERT INTO Equipo_de_Trabajo(Numero_Postulacion, ID_integrante)
 VALUES
@@ -204,5 +301,127 @@ VALUES
     ('1', '5'),
     ('1', '6'),
     ('1', '7'),
-    ('1', '8');
+    ('1', '8'),
+    ('2', '9'),
+    ('2', '10'),
+    ('2', '11'),
+    ('2', '12'),
+    ('2', '13'),
+    ('2', '14'),
+    ('2', '15'),
+    ('2', '16'),
+    ('3','17'),
+    ('3','18'),
+    ('3','19'),
+    ('3','20'),
+    ('3','21'),
+    ('3','22'),
+    ('3','23'),
+    ('3','24'),
+    ('4','25'),
+    ('4','26'),
+    ('4','27'),
+    ('4','28'),
+    ('4','29'),
+    ('4','30'),
+    ('4','31'),
+    ('4','32'),
+    ('5','33'),
+    ('5','34'),
+    ('5','35'),
+    ('5','36'),
+    ('5','37'),
+    ('5','38'),
+    ('5','39'),
+    ('5','40'),
+    ('6','41'),
+    ('6','42'),
+    ('6','43'),
+    ('6','44'),
+    ('6','45'),
+    ('6','46'),
+    ('6','47'),
+    ('6','48'),
+    ('7','17'),
+    ('7','18'),
+    ('7','19'),
+    ('7','20'),
+    ('7','21'),
+    ('7','49'),
+    ('7','50'),
+    ('7','22'),
+    ('8','25'),
+    ('8','26'),
+    ('8','27'),
+    ('8','28'),
+    ('8','29'),
+    ('8','51'),
+    ('8','52'),
+    ('8','30'),
+    ('9','33'),
+    ('9','34'),
+    ('9','35'),
+    ('9','36'),
+    ('9','37'),
+    ('9','53'),
+    ('9','54'),
+    ('9','38'),
+    ('10','41'),
+    ('10','42'),
+    ('10','43'),
+    ('10','44'),
+    ('10','45'),
+    ('10','49'),
+    ('10','50'),
+    ('10','46');
+
+SELECT COUNT(*) FROM Postulacion;
+SELECT COUNT(*) FROM Iniciativa;
+SELECT COUNT(*) FROM Entidad_Empresa;
+SELECT COUNT(*) FROM Integrante_Equipo;
+
+SELECT 
+    p.Numero_Postulacion,
+    p.Codigo_Postulacion,
+    p.Fecha_Postulacion,
+    p.Presupuesto_Total,
+
+    e.Nombre_Empresa,
+    e.Rut_Empresa,
+
+    s.Nombre_Sede,
+
+    r1.Nombre_Region AS Region_Ejecucion,
+    r2.Nombre_Region AS Region_Impacto,
+
+    ti.Nombre_Tipo_Iniciativa,
+    ep.Nombre_Estado
+
+FROM Postulacion p
+
+JOIN Entidad_Empresa e 
+    ON p.Rut_Empresa = e.Rut_Empresa
+
+JOIN Sede s 
+    ON p.ID_Sede = s.ID_Sede
+
+JOIN Region r1 
+    ON p.ID_Region_Ejecucion = r1.ID_Region
+
+JOIN Region r2 
+    ON p.ID_Region_Impacto = r2.ID_Region
+
+JOIN Tipo_Iniciativa ti 
+    ON p.ID_Tipo_Iniciativa = ti.ID_Tipo_Iniciativa
+
+JOIN Estado_Postulacion ep 
+    ON p.ID_Estado = ep.ID_Estado
+
+JOIN Equipo_de_Trabajo et 
+    ON p.Numero_Postulacion = et.Numero_Postulacion
+
+JOIN Integrante_Equipo ie
+    ON et.ID_Integrante = ie.ID_Integrante
+
+WHERE et.Numero_Postulacion= 1;
 
