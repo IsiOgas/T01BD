@@ -272,25 +272,25 @@ VALUES
     ('3','Pruebas y validación','Informe de pruebas y validación en terreno','10'),
     ('4','Análisis','Informe de requerimientos','10'),
     ('4','Desarrollo','Plataforma funcional','18'),
-    ('4','Implementación','Sistema desplegado y operativo','12'),  -- TOTAL: 40 ❌
+    ('4','Implementación','Sistema desplegado y operativo','12'),
     ('5','Diseño','Arquitectura del sistema','8'),
     ('5','Desarrollo','Plataforma IA implementada','14'),
-    ('5','Evaluación','Informe de resultados educativos','12'),    -- TOTAL: 34 ✅
+    ('5','Evaluación','Informe de resultados educativos','12'),
     ('6','Diagnóstico','Informe energético inicial','12'),
     ('6','Desarrollo','Sistema implementado','16'),
-    ('6','Validación','Resultados medidos en terreno','10'),   -- TOTAL: 38 ❌
+    ('6','Validación','Resultados medidos en terreno','10'),
     ('7','Planificación','Documento de planificación','8'),
     ('7','Desarrollo','Sistema implementado','14'),
     ('7','Pruebas','Informe de pruebas','10'),
     ('8','Análisis','Requerimientos definidos','10'),
     ('8','Desarrollo','Plataforma funcional','16'),
-    ('8','Evaluación','Resultados medidos','12'), -- 38 ❌
+    ('8','Evaluación','Resultados medidos','12'),
     ('9','Diagnóstico','Informe inicial','6'),
     ('9','Desarrollo','Sistema desarrollado','12'),
-    ('9','Validación','Resultados validados','10'), -- 28 ✅
+    ('9','Validación','Resultados validados','10'),
     ('10','Investigación','Estudio preliminar','12'),
     ('10','Desarrollo','Modelo IA implementado','18'),
-    ('10','Pruebas','Informe final','10'); -- 40 ❌
+    ('10','Pruebas','Informe final','10');
 
 INSERT INTO Equipo_de_Trabajo(Numero_Postulacion, ID_integrante)
 VALUES
@@ -449,6 +449,52 @@ JOIN Sede s
 JOIN Region r1 
     ON p.ID_Region_Ejecucion = r1.ID_Region
 JOIN Region r2 
-    ON p.ID_Region_Impacto = r2.ID_Region
+    ON p.ID_Region_Impacto=r2.ID_Region
 JOIN Entidad_Empresa e 
-    ON p.Rut_Empresa = e.Rut_Empresa;
+    ON p.Rut_Empresa= e.Rut_Empresa;
+
+
+-- 2 Postulacion por Region
+SELECT
+    e.Nombre_Empresa AS 'Empresa',
+    s.Nombre_Sede AS 'Sede',
+    p.Presupuesto_Total 'Presupuesto'
+
+FROM Postulacion p
+JOIN Entidad_Empresa e 
+    ON p.Rut_Empresa = e.Rut_Empresa
+JOIN Sede s 
+    ON p.ID_Sede = s.ID_Sede
+JOIN Region r 
+    ON p.ID_Region_Ejecucion = r.ID_Region
+WHERE r.Nombre_Region = 'Valparaíso';
+
+
+-- 3 Conteo por tipo Iniciativa 
+SELECT
+    ti.Nombre_Tipo_Iniciativa AS 'Tipo de Iniciativa', 
+    COUNT( p.Numero_Postulacion) AS 'Cantidad de Postulaciones'
+
+FROM Postulacion p
+JOIN Tipo_Iniciativa ti 
+    ON p.ID_Tipo_Iniciativa = ti.ID_tipo_iniciativa
+GROUP BY ti.Nombre_Tipo_Iniciativa;
+
+
+-- 4 Equipo de trabajo de una postulación
+SELECT
+    ie.RUT_Integrante AS 'RUT',
+    ie.Nombre_Integrante AS 'Nombre',
+    tp.Nombre_Tipo_Persona AS 'Tipo (Profesor/Estudiante)',
+    s.Nombre_Sede AS 'Sede',
+    ie.Mail_Integrante AS 'Email',
+    ie.Rol_Cumple_Integrante AS 'ROL'
+
+FROM Equipo_de_Trabajo et
+JOIN Integrante_Equipo ie 
+    ON et.ID_integrante = ie.ID_integrante
+JOIN Tipo_Persona tp 
+    ON ie.ID_Tipo_Persona = tp.ID_Tipo_Persona
+JOIN Sede s 
+    ON ie.ID_Sede = s.ID_Sede
+WHERE et.Numero_Postulacion = 1;
