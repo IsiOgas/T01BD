@@ -96,7 +96,7 @@ CREATE TABLE Postulacion(
     Numero_Postulacion INT PRIMARY KEY,
     Fecha_Postulacion DATE NOT NULL, -- para guardar fechas es el date tipo aaaa-mm-dd
     Codigo_Postulacion VARCHAR(100) NOT NULL UNIQUE,
-    Presupuesto_Total DECIMAL(14,2) NOT NULL,
+    Presupuesto_Total DECIMAL(15,2) NOT NULL,
     Nombre_Responsable_1 VARCHAR(100) NOT NULL,
     Nombre_Responsable_2 VARCHAR(100) NOT NULL,
 
@@ -146,7 +146,7 @@ CREATE TABLE Integrante_Equipo(
     FOREIGN KEY (ID_Sede) REFERENCES Sede(ID_Sede)
 ) ENGINE=InnoDB;
 
-CREATE TABLE Equipo_de_Trabajo(
+CREATE TABLE Postulacion_Integrante(
     Numero_Postulacion INT NOT NULL,
     ID_integrante INT NOT NULL,
     PRIMARY KEY (Numero_Postulacion, ID_integrante), -- es una primary compuesta ambas son pk
@@ -292,7 +292,7 @@ VALUES
     ('10','Desarrollo','Modelo IA implementado','18'),
     ('10','Pruebas','Informe final','10');
 
-INSERT INTO Equipo_de_Trabajo(Numero_Postulacion, ID_integrante)
+INSERT INTO Postulacion_Integrante(Numero_Postulacion, ID_integrante)
 VALUES
     ('1', '1'),
     ('1', '2'),
@@ -385,15 +385,11 @@ SELECT
     p.Codigo_Postulacion,
     p.Fecha_Postulacion,
     p.Presupuesto_Total,
-
     e.Nombre_Empresa,
     e.Rut_Empresa,
-
     s.Nombre_Sede,
-
     r1.Nombre_Region AS Region_Ejecucion,
     r2.Nombre_Region AS Region_Impacto,
-
     ti.Nombre_Tipo_Iniciativa,
     ep.Nombre_Estado
 
@@ -420,14 +416,14 @@ JOIN Estado_Postulacion ep
 WHERE p.Numero_Postulacion= 1;
 
 SELECT 
-    et.Numero_Postulacion, tp.Nombre_Tipo_Persona,
+    pi.Numero_Postulacion, tp.Nombre_Tipo_Persona,
     COUNT(ie.ID_integrante) AS Total_Integrantes
-FROM Equipo_de_Trabajo et 
+FROM Postulacion_Integrante pi
 JOIN Integrante_Equipo ie 
-    ON et.ID_integrante = ie.ID_integrante
+    ON pi.ID_integrante = ie.ID_integrante
 JOIN Tipo_Persona tp 
     ON ie.ID_Tipo_Persona = tp.ID_Tipo_Persona
-GROUP BY et.Numero_Postulacion, tp.Nombre_Tipo_Persona;
+GROUP BY pi.Numero_Postulacion, tp.Nombre_Tipo_Persona;
 
 
 -- 1. Listado General de Postulaciones
@@ -490,20 +486,20 @@ SELECT
     ie.Mail_Integrante AS 'Email',
     ie.Rol_Cumple_Integrante AS 'ROL'
 
-FROM Equipo_de_Trabajo et
+FROM Postulacion_Integrante pi
 JOIN Integrante_Equipo ie 
-    ON et.ID_integrante = ie.ID_integrante
+    ON pi.ID_integrante = ie.ID_integrante
 JOIN Tipo_Persona tp 
     ON ie.ID_Tipo_Persona = tp.ID_Tipo_Persona
 JOIN Sede s 
     ON ie.ID_Sede = s.ID_Sede
-WHERE et.Numero_Postulacion = 1;
+WHERE pi.Numero_Postulacion = 1;
 
 
 -- 5 Empresas con postulaciones y convenios
 SELECT
     e.Nombre_Empresa AS 'Nombre',
-    ta.Nombre_tamanio AS 'Tamanio',
+    ta.Nombre_Tamanio AS 'Tamanio',
     IF(e.Convenio_USM = 1, 'Sí', 'No') AS 'Convenio(si/no)',
     COUNT(p.Rut_Empresa) AS 'Cantidad de postulaciones asociadas'
 FROM Entidad_Empresa e
@@ -511,13 +507,13 @@ JOIN Tamanio_Empresa ta
     ON e.ID_Tamanio = ta.ID_Tamanio
 JOIN Postulacion p
     ON p.Rut_Empresa = e.Rut_Empresa
-GROUP BY e.Rut_Empresa, e.Nombre_Empresa, ta.Nombre_tamanio, e.Convenio_USM
+GROUP BY e.Rut_Empresa, e.Nombre_Empresa, ta.Nombre_Tamanio, e.Convenio_USM
 ORDER BY COUNT(p.Rut_Empresa) DESC;
 
 -- 6 Postulaciones con presupuesto sobre el promedio
 SELECT
     p.Numero_Postulacion AS 'Numero postulacion',
-    e.Nombre_empresa AS 'Nombre empresa',
+    e.Nombre_Empresa AS 'Nombre empresa',
     p.Presupuesto_Total AS 'Presupuesto total'
 FROM Postulacion p
 JOIN Entidad_Empresa e
@@ -527,27 +523,27 @@ ORDER BY p.Presupuesto_Total DESC;
 
 -- 7 Cantidad de integrantes por postulacion y tipo  imprime una tabla feaa, en una linea 0 pof y cant alumnos y abajo cant prof y 0 alumnos:(
 SELECT 
-    et.Numero_Postulacion AS Postulacion, 
-    SUM(IF(tp.Nombre_Tipo_Persona = 'Profesor', 1, 0)) AS Profesores,
-    SUM(IF(tp.Nombre_Tipo_Persona = 'Estudiante', 1, 0)) AS Estudiantes
-FROM Equipo_de_Trabajo et 
+    pi.Numero_Postulacion AS Postulacion, 
+    tp.ID_Tipo_Persona AS Tipo,
+    COUNT(ie.ID_integrante) AS Cantidad
+FROM Postulacion_Integrante pi
 JOIN Integrante_Equipo ie 
-    ON et.ID_integrante = ie.ID_integrante
+    ON pi.ID_integrante = ie.ID_integrante
 JOIN Tipo_Persona tp 
     ON ie.ID_Tipo_Persona = tp.ID_Tipo_Persona
-GROUP BY et.Numero_Postulacion, tp.Nombre_Tipo_Persona;
+GROUP BY pi.Numero_Postulacion, tp.Nombre_Tipo_Persona;
 
 -- 8 Postulaciones que no cumplen el minimo de equipo
 SELECT 
-    et.Numero_Postulacion AS Postulacion, 
+    pi.Numero_Postulacion AS Postulacion, 
     SUM(IF(tp.Nombre_Tipo_Persona = 'Profesor', 1, 0)) AS Profesores,
     SUM(IF(tp.Nombre_Tipo_Persona = 'Estudiante', 1, 0)) AS Estudiantes
-FROM Equipo_de_Trabajo et 
+FROM Postulacion_Integrante pi
 JOIN Integrante_Equipo ie 
-    ON et.ID_integrante = ie.ID_integrante
+    ON pi.ID_integrante = ie.ID_integrante
 JOIN Tipo_Persona tp 
     ON ie.ID_Tipo_Persona = tp.ID_Tipo_Persona
-GROUP BY et.Numero_Postulacion
+GROUP BY pi.Numero_Postulacion
 HAVING Profesores< 3 OR Estudiantes< 5;
 
 -- 9 Empresas sin postulaciones registradas
