@@ -63,7 +63,8 @@ VALUES
     ('76123456-7','AgroTech SpA','Carlos Muñoz','carlos.munoz@agrotech.cl','1','912345678','3'),
     ('76234567-8','SmartCity Ltda.','Andrea Soto','andrea.soto@smartcity.cl','0','923456789','3'),
     ('76345678-9','EduTech Chile','Marcelo Díaz','marcelo.diaz@edutech.cl','1','934567890','2'),
-    ('76456789-0','EcoEnergy SpA','Patricia Rojas','patricia.rojas@ecoenergy.cl','0','945678901','1');
+    ('76456789-0','EcoEnergy SpA','Patricia Rojas','patricia.rojas@ecoenergy.cl','0','945678901','1'),
+    ('76999888-1', 'Constructora Norte SpA', 'Roberto Soto', 'roberto.soto@cnorte.cl', '0', '912000111', '2');
 
 INSERT INTO Postulacion(Numero_Postulacion, Fecha_Postulacion, Codigo_Postulacion, Presupuesto_Total, Nombre_Responsable_1, Nombre_Responsable_2, Rut_Empresa, ID_Sede, ID_Region_Ejecucion, ID_Region_Impacto, ID_Tipo_Iniciativa, ID_Estado)
 VALUES
