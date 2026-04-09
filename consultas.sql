@@ -93,7 +93,7 @@ JOIN Entidad_Empresa e
 WHERE p.Presupuesto_Total> (SELECT AVG(Presupuesto_Total) FROM Postulacion)
 ORDER BY p.Presupuesto_Total DESC;
 
--- 7 Cantidad de integrantes por postulacion y tipo  imprime una tabla feaa, en una linea 0 pof y cant alumnos y abajo cant prof y 0 alumnos:(
+-- 7 Cantidad de integrantes por postulacion y tipo
 SELECT 
     pi.Numero_Postulacion AS Postulacion, 
     tp.Nombre_Tipo_Persona AS Tipo,
