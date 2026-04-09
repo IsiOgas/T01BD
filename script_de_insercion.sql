@@ -54,7 +54,13 @@ VALUES
     ('Tomás Gutiérrez','93777888-3','Electrónica','tomas.gutierrez@usm.cl','933333444','Hardware','2','4'),
     ('Valentina Navarro','94888999-4','Informática','valentina.navarro@usm.cl','944444555','Frontend','2','5'),
     ('Sebastián Carrasco','95999000-5','Industrial','sebastian.carrasco@usm.cl','955555666','Apoyo','2','1'),
-    ('Florencia Morales','96000111-6','Informática','florencia.morales@usm.cl','966666777','QA','2','2');
+    ('Florencia Morales','96000111-6','Informática','florencia.morales@usm.cl','966666777','QA','2','2'),
+    ('Gabriel Soto','97111222-1','Informática','gabriel.soto@usm.cl','911000999','Líder técnico','1','2'),
+    ('Daniela Pérez','97222333-2','Industrial','daniela.perez@usm.cl','922000888','Gestión','1','2'),
+    ('Lucas Herrera','97333444-3','Informática','lucas.herrera@usm.cl','933000777','Backend','2','2'),
+    ('Antonia Ruiz','97444555-4','Informática','antonia.ruiz@usm.cl','944000666','Frontend','2','2'),
+    ('Martín Castro','97555666-5','Electrónica','martin.castro@usm.cl','955000555','Hardware','2','2'),
+    ('Josefa Morales','97666777-6','Industrial','josefa.morales@usm.cl','966000444','Apoyo','2','2');
 
 INSERT INTO Entidad_Empresa(Rut_Empresa, Nombre_Empresa, Representante_Empresa, Mail_Representante, Convenio_USM, Telefono_Representante, ID_Tamanio)
 VALUES
@@ -64,7 +70,8 @@ VALUES
     ('76234567-8','SmartCity Ltda.','Andrea Soto','andrea.soto@smartcity.cl','0','923456789','3'),
     ('76345678-9','EduTech Chile','Marcelo Díaz','marcelo.diaz@edutech.cl','1','934567890','2'),
     ('76456789-0','EcoEnergy SpA','Patricia Rojas','patricia.rojas@ecoenergy.cl','0','945678901','1'),
-    ('76999888-1', 'Constructora Norte SpA', 'Roberto Soto', 'roberto.soto@cnorte.cl', '0', '912000111', '2');
+    ('76999888-1', 'Constructora Norte SpA', 'Roberto Soto', 'roberto.soto@cnorte.cl', '0', '912000111', '2'),
+    ('77888999-5','BioInnovar SpA','Laura Méndez','laura.mendez@bioinnovar.cl','0','987654321','2');
 
 INSERT INTO Postulacion(Numero_Postulacion, Fecha_Postulacion, Codigo_Postulacion, Presupuesto_Total, Nombre_Responsable_1, Nombre_Responsable_2, Rut_Empresa, ID_Sede, ID_Region_Ejecucion, ID_Region_Impacto, ID_Tipo_Iniciativa, ID_Estado)
 VALUES
@@ -77,7 +84,9 @@ VALUES
     ('7','2026-04-15','D07','17500000','Luis Herrera','Carolina Vega','76234567-8','1','13','5','1','1'),
     ('8','2026-04-18','E08','21000000','Ricardo Núñez','Paula Torres','76345678-9','3','9','8','2','1'),
     ('9','2026-04-20','F09','16000000','Claudia Pinto','Héctor Salinas','76456789-0','4','6','13','1','1'),
-    ('10','2026-04-25','G10','25000000','Juan Pérez','María González','76123456-7','2','13','6','2','1');
+    ('10','2026-04-25','G10','25000000','Juan Pérez','María González','76123456-7','2','13','6','2','1'),
+    ('11','2026-05-01','H11','18000000','Diego Fernández','Camila Bravo','76999888-1','2','13','5','1','1'),
+    ('12','2026-05-05','I12','14000000','Gabriel Soto','Daniela Pérez','76999888-1','2','13','5','1','1');
 
 INSERT INTO Iniciativa(Documentos, Nombre_Iniciativa, Objetivo_Iniciativa, Descripcion_Soluciones, Resultados_Esperados,ID_Postulacion)
 VALUES
@@ -90,7 +99,9 @@ VALUES
     ('doc_iot2.pdf','Optimización de Riego Inteligente','Mejorar el sistema de riego automatizado mediante sensores.','Integración de sensores y análisis de datos en tiempo real.','Reducción de consumo hídrico y mayor eficiencia agrícola.','7'),
     ('doc_edu2.pdf','Plataforma Educativa Colaborativa','Desarrollar una plataforma de colaboración estudiantil.','Sistema web con herramientas de comunicación y gestión.','Mejor interacción y aprendizaje entre estudiantes.','8'),
     ('doc_energy2.pdf','Monitoreo Energético Industrial','Sistema para medir consumo energético en tiempo real.','Uso de dashboards y alertas inteligentes.','Disminución de costos energéticos.','9'),
-    ('doc_agro2.pdf','Análisis Predictivo Agrícola','Aplicar IA para predecir rendimiento de cultivos.','Modelos predictivos basados en datos históricos.','Optimización de producción agrícola.','10');
+    ('doc_agro2.pdf','Análisis Predictivo Agrícola','Aplicar IA para predecir rendimiento de cultivos.','Modelos predictivos basados en datos históricos.','Optimización de producción agrícola.','10'),
+    ('doc_error.pdf','Sistema de Prueba Incorrecto','Simular una postulacion con error de integrantes.','Caso de prueba para validacion de reglas.','Detectar inconsistencias en el equipo de trabajo.','11'),
+    ('doc_test2.pdf','Sistema de Validación de Equipos','Evaluar cumplimiento de reglas de integrantes.','Simulación de escenarios incorrectos.','Detección automática de errores en postulaciones.','12');
 
 INSERT INTO Etapa_Cronograma (ID_Postulacion, Etapa, Entregable, Plazos)
 VALUES
@@ -125,7 +136,13 @@ VALUES
     ('9','Validación','Resultados validados','10'),
     ('10','Investigación','Estudio preliminar','12'),
     ('10','Desarrollo','Modelo IA implementado','18'),
-    ('10','Pruebas','Informe final','10');
+    ('10','Pruebas','Informe final','10'),
+    ('11','Planificación','Documento inicial','6'),
+    ('11','Desarrollo','Sistema base','10'),
+    ('11','Pruebas','Informe de errores','8'),
+    ('12','Inicio','Documento base','4'),
+    ('12','Desarrollo','Sistema parcial','8'),
+    ('12','Cierre','Informe final','6');
 
 INSERT INTO Postulacion_Integrante(Numero_Postulacion, ID_integrante)
 VALUES
@@ -182,33 +199,47 @@ VALUES
     ('7','19'),
     ('7','20'),
     ('7','21'),
+    ('7','22'),
     ('7','49'),
     ('7','50'),
-    ('7','22'),
     ('8','25'),
     ('8','26'),
     ('8','27'),
     ('8','28'),
     ('8','29'),
+    ('8','30'),
     ('8','51'),
     ('8','52'),
-    ('8','30'),
     ('9','33'),
     ('9','34'),
     ('9','35'),
     ('9','36'),
     ('9','37'),
+    ('9','38'),
     ('9','53'),
     ('9','54'),
-    ('9','38'),
     ('10','41'),
     ('10','42'),
     ('10','43'),
     ('10','44'),
     ('10','45'),
+    ('10','46'),
     ('10','49'),
     ('10','50'),
-    ('10','46');
+    ('11','17'),
+    ('11','18'),
+    ('11','20'),
+    ('11','21'),
+    ('11','22'),
+    ('11','49'),
+    ('11','50'),
+    ('11','51'),
+    ('12','55'),
+    ('12','56'),
+    ('12','57'),
+    ('12','58'),
+    ('12','59'),
+    ('12','60');
 
 SELECT COUNT(*) FROM Postulacion;
 SELECT COUNT(*) FROM Iniciativa;
